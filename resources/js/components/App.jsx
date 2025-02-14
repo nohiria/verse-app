@@ -1,19 +1,15 @@
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Navbar";
+import Home from "../Pages/Home";
+import "../../css/app.css"; 
 
 export default function App() {
   return (
-    <>
-      <h1>Hello, world!</h1>
-      <Counter />
-    </>
-  );
-}
-
-function Counter() {
-  const [count, setCount] = useState(0);
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      You clicked me {count} times
-    </button>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }

@@ -1,39 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
+import axios from "axios";
 
-const VerseOfTheDay = () => {
-    const [verse, setVerse] = useState(null);
+export default function VerseOfTheDay() {
+  const [verse, setVerse] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        axios.get('/api/verse-of-the-day').then((response) => {
-            setVerse(response.data);
-        });
-    }, []);
+  const fetchVerse = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("https://verse-app.local/api/verse-of-the-day");
+      setVerse(response.data);
+    } catch (error) {
+      console.error("Error fetching verse:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const addToFavorites = () => {
-        axios.post('/api/favorites', { verse_id: verse.id }).then(() => {
-            alert('Added to favorites!');
-        });
-    };
+  useEffect(() => {
+    fetchVerse();
+  }, []);
 
-    return (
-        <div className="p-4 max-w-md mx-auto bg-white rounded-xl shadow-md">
-            {verse ? (
-                <div>
-                    <h2 className="text-lg font-bold">{verse.reference}</h2>
-                    <p className="text-gray-700">{verse.text}</p>
-                    <button
-                        onClick={addToFavorites}
-                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-                    >
-                        Add to Favorites
-                    </button>
-                </div>
-            ) : (
-                <p>Loading...</p>
-            )}
-        </div>
-    );
-};
+  if (loading) {
+    return <ActivityIndicator size="large" color="#4F46E5" />;
+  }
 
-export default VerseOfTheDay;
+  return (
+    <View className="flex-1 justify-center items-center bg-gray-100 p-4">
+      <Text className="text-xl font-bold text-center">{verse.text}</Text>
+      <Text className="text-lg text-gray-600 text-center mt-2">
+        {verse.book} {verse.chapter}:{verse.verse}
+      </Text>
+      <TouchableOpacity onPress={fetchVerse} className="mt-4 bg-blue-600 px-4 py-2 rounded">
+        <Text className="text-white font-semibold">Actualizar Verso</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
