@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UnsplashController;
 use App\Http\Controllers\VerseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/verse-of-the-day', [VerseController::class, 'getVerseOfTheDay']);
+
+Route::get('/random-image', [UnsplashController::class, 'getRandomImage']);

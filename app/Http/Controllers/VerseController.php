@@ -22,15 +22,22 @@ class VerseController extends Controller
             ['name' => 'romanos', 'chapters' => 16],
         ];
 
+        $books = [
+            ['name' => 'filipenses', 'chapters' => 4],
+        ];
+
         $book = $books[array_rand($books)];
         $chapter = rand(1, $book['chapters']);
         $verse = rand(1, 20);
 
-        $url = "https://bible-api.deno.dev/api/read/nvi/{$book['name']}/{$chapter}/{$verse}";
+        $chapter = 4;
+        $verse = 4;
+
+        $url = "https://bible-api.deno.dev/api/read/nvi/filipenses/4/4";
 
         $response = Http::get($url);
         if ($response->failed()) {
-            return response()->json(['error' => 'No se pudo obtener el verso'], 500);
+            return response()->json(['error' => 'Failed to fetch the verse'], 500);
         }
 
         $verseData = [

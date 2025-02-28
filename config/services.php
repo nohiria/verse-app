@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'unsplash' => [
+        'access_key' => env('UNSPLASH_ACCESS_KEY'),
+        'secret_key' => env('UNSPLASH_SECRET_KEY'),
+        'base_url' => 'https://api.unsplash.com/',
+    ],
+
 ];

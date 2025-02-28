@@ -9,3 +9,8 @@ export async function fetchVerseOfTheDay() {
       return { text: "No se pudo obtener el verso", book: "Error", chapter: 0, verse: 0 };
     }
   }
+
+export async function fetchRandomImage() {
+  const response = await fetch("http://verse-app.local/api/random-image");
+  return await response.json();
+}
