@@ -50,10 +50,10 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           {/* Dark mode toggle button */}
           <button
-            className="p-2 rounded-full bg-gray-800 dark:bg-yellow-400 text-white dark:text-gray-900 transition-all duration-300"
+            className="p-2 rounded-full bg-gray-800 dark:bg-orange-300 text-white dark:text-gray-900 transition-all duration-300"
             onClick={() => setDarkMode(!darkMode)}
           >
-            {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+            {darkMode ? <FaSun size={15} /> : <FaMoon size={15} />}
           </button>
 
           {/* AuthMenu for desktop */}
