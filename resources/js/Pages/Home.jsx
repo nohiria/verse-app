@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { fetchVerseOfTheDay, fetchRandomImage } from "../Services/api.js";
+import { useState, useEffect } from "react";
+import Layout from "@/Layouts/Layout";
 
 export default function Home() {
   const [verse, setVerse] = useState(null);
@@ -7,23 +7,29 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      const verseData = await fetchVerseOfTheDay();
-      const imageData = await fetchRandomImage();
-  
-      console.log("Imagen obtenida:", imageData);
-  
-      setVerse(verseData);
-      setImage(imageData.urls?.full);
+      try {
+        const verseResponse = await fetch("/api/verse-of-the-day");
+        const imageResponse = await fetch("/api/random-image");
+
+        const verseData = await verseResponse.json();
+        const imageData = await imageResponse.json();
+
+        setVerse(verseData);
+        setImage(imageData.urls.full);
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
     }
+
     fetchData();
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-100 dark:bg-gray-900 transition-all duration-300">
-      {/* Left Section - Card */}
+    <div className="flex flex-col lg:flex-row min-h-screen transition-all duration-300">
+      {/* Sección Izquierda - Versículo */}
       <div className="w-full lg:w-2/3 flex items-center justify-center p-10">
-        <div className="relative bg-white dark:bg-gray-800 rounded-lg p-10 text-left max-w-2xl w-full transition-all duration-300">
-          {/* Blur Background */}
+        <div className="relative rounded-lg p-10 text-left max-w-2xl w-full transition-all duration-300">
+          {/* Fondo Difuminado */}
           {image && (
             <div
               className="absolute inset-0 bg-cover bg-center rounded-lg"
@@ -34,10 +40,10 @@ export default function Home() {
             ></div>
           )}
 
-          {/* Opacity layer */}
-          <div className="absolute inset-0 bg-black opacity-30 dark:opacity-50 rounded-lg transition-opacity duration-300"></div>
+          {/* Capa de Opacidad */}
+          <div className="absolute inset-0 bg-black opacity-30 rounded-lg transition-opacity duration-300"></div>
 
-          {/* Verse Card*/}
+          {/* Tarjeta del Versículo */}
           <div className="relative text-white z-10">
             <h2 className="text-sm font-semibold opacity-50">
               Versículo del Día
@@ -46,13 +52,13 @@ export default function Home() {
               {verse?.book} {verse?.chapter}:{verse?.verse}
             </p>
 
-            {/* Verse content */}
+            {/* Contenido del Versículo */}
             <p className="text-3xl font-bold italic mt-6 text-white">{verse?.text}</p>
           </div>
         </div>
       </div>
 
-      {/* Right Section - Image */}
+      {/* Sección Derecha - Imagen */}
       {image && (
         <div
           className="hidden lg:block w-1/3 bg-cover bg-center relative"
@@ -60,10 +66,12 @@ export default function Home() {
             backgroundImage: `url(${image})`,
           }}
         >
-          {/* Dark Layer (Dark Mode) */}
-          <div className="absolute inset-0 bg-black opacity-0 dark:opacity-40 transition-opacity duration-300"></div>
+          {/* Capa Oscura (Modo Oscuro) */}
+          <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300"></div>
         </div>
       )}
     </div>
   );
 }
+
+Home.layout = (page) => <Layout>{page}</Layout>;
