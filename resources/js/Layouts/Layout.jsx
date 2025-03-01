@@ -11,11 +11,6 @@ export default function Layout({ children }) {
       <main className="flex-1 container mx-auto">
         {children}
       </main>
-      
-      {/* Footer */}
-      <footer className="py-4 text-center bg-gray-100 text-gray-600 dark:bg-gray-900 dark:text-gray-400">
-        © {new Date().getFullYear()} VerseApp
-      </footer>
     </div>
   );
 }
