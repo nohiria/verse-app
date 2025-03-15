@@ -1,12 +1,13 @@
 import { useEffect } from "react";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
 
 export default function Register() {
+    const { translations } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
@@ -25,12 +26,12 @@ export default function Register() {
 
     return (
         <GuestLayout>
-            <Head title="Registro" />
+            <Head title={translations.messages.auth.register} />
 
-            <div className="max-w-md w-full bg-gray-900 p-8 rounded-lg shadow-lg">
+            <div className="max-w-md w-full p-8">
                 {/* Título */}
                 <h1 className="text-3xl font-bold text-white mb-6">
-                    Crear cuenta
+                    {translations.messages.auth.register}
                 </h1>
 
                 {/* Formulario */}
@@ -39,7 +40,7 @@ export default function Register() {
                     <div>
                         <InputLabel
                             htmlFor="name"
-                            value="Nombre"
+                            value={translations.messages.auth.name}
                             className="text-gray-300"
                         />
                         <TextInput
@@ -59,7 +60,7 @@ export default function Register() {
                     <div>
                         <InputLabel
                             htmlFor="email"
-                            value="Correo Electrónico"
+                            value={translations.messages.auth.email}
                             className="text-gray-300"
                         />
                         <TextInput
@@ -75,11 +76,11 @@ export default function Register() {
                         <InputError message={errors.email} className="mt-2" />
                     </div>
 
-                    {/* Password */}
+                    {/* Contraseña */}
                     <div>
                         <InputLabel
                             htmlFor="password"
-                            value="Contraseña"
+                            value={translations.messages.auth.password}
                             className="text-gray-300"
                         />
                         <TextInput
@@ -95,11 +96,11 @@ export default function Register() {
                         <InputError message={errors.password} className="mt-2" />
                     </div>
 
-                    {/* Confirmar Password */}
+                    {/* Confirmar Contraseña */}
                     <div>
                         <InputLabel
                             htmlFor="password_confirmation"
-                            value="Confirmar Contraseña"
+                            value={translations.messages.auth.confirm_password}
                             className="text-gray-300"
                         />
                         <TextInput
@@ -109,34 +110,26 @@ export default function Register() {
                             value={data.password_confirmation}
                             className="mt-1 block w-full bg-gray-800 text-white border border-gray-700 rounded-lg p-2"
                             autoComplete="new-password"
-                            onChange={(e) =>
-                                setData("password_confirmation", e.target.value)
-                            }
+                            onChange={(e) => setData("password_confirmation", e.target.value)}
                             required
                         />
-                        <InputError
-                            message={errors.password_confirmation}
-                            className="mt-2"
-                        />
+                        <InputError message={errors.password_confirmation} className="mt-2" />
                     </div>
 
-                    {/* Botón de registro */}
+                    {/* Botón de Registro */}
                     <PrimaryButton
                         className="w-full text-lg px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-semibold transition duration-300"
                         disabled={processing}
                     >
-                        Registrarse
+                        {translations.messages.auth.register}
                     </PrimaryButton>
                 </form>
 
-                {/* Iniciar sesión */}
+                {/* Link a Login */}
                 <p className="text-center text-sm text-gray-400 mt-6">
-                    ¿Ya tienes una cuenta?{" "}
-                    <Link
-                        href="/login"
-                        className="text-blue-500 hover:underline"
-                    >
-                        Inicia sesión aquí
+                    {translations.messages.auth.already_registered}{" "}
+                    <Link href={route("login")} className="text-blue-500 hover:underline">
+                        {translations.messages.auth.login_here}
                     </Link>
                 </p>
             </div>

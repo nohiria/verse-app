@@ -29,9 +29,28 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $locale = app()->getLocale();
+        $messagesPath = base_path('lang/' . $locale . '/messages.php');
+        
+        // Debug
+        \Log::info('Loading translations from:', ['path' => $messagesPath]);
+        \Log::info('Current locale:', ['locale' => $locale]);
+        
+        if (!file_exists($messagesPath)) {
+            \Log::error('Translation file not found:', ['path' => $messagesPath]);
+            $messages = [];
+        } else {
+            $messages = require $messagesPath;
+            \Log::info('Loaded messages:', $messages);
+        }
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+            ],
+            'locale' => $locale,
+            'translations' => [
+                'messages' => $messages
             ],
             'flash' => [
                 'message' => fn () => $request->session()->get('message')

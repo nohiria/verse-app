@@ -1,13 +1,14 @@
 import { useEffect } from "react";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
 import Checkbox from "@/Components/Checkbox";
 
 export default function Login({ status, canResetPassword }) {
+    const { translations } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -25,12 +26,12 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Iniciar sesión" />
+            <Head title={translations.messages.auth.login} />
 
             <div className="max-w-md w-full p-8">
                 {/* Título */}
                 <h1 className="text-3xl font-bold text-white mb-6">
-                    Iniciar sesión
+                    {translations.messages.auth.login}
                 </h1>
 
                 {status && <div className="mb-4 text-sm text-green-500">{status}</div>}
@@ -41,7 +42,7 @@ export default function Login({ status, canResetPassword }) {
                     <div>
                         <InputLabel
                             htmlFor="email"
-                            value="Correo Electrónico"
+                            value={translations.messages.auth.email}
                             className="text-gray-300"
                         />
                         <TextInput
@@ -61,7 +62,7 @@ export default function Login({ status, canResetPassword }) {
                     <div>
                         <InputLabel
                             htmlFor="password"
-                            value="Contraseña"
+                            value={translations.messages.auth.password}
                             className="text-gray-300"
                         />
                         <TextInput
@@ -84,7 +85,7 @@ export default function Login({ status, canResetPassword }) {
                                 checked={data.remember}
                                 onChange={(e) => setData("remember", e.target.checked)}
                             />
-                            <span className="ml-2 text-sm">Recuérdame</span>
+                            <span className="ml-2 text-sm">{translations.messages.auth.remember}</span>
                         </label>
 
                         {canResetPassword && (
@@ -92,7 +93,7 @@ export default function Login({ status, canResetPassword }) {
                                 href={route("password.request")}
                                 className="text-sm text-blue-400 hover:underline"
                             >
-                                ¿Olvidaste tu contraseña?
+                                {translations.messages.auth.forgot}
                             </Link>
                         )}
                     </div>
@@ -102,18 +103,18 @@ export default function Login({ status, canResetPassword }) {
                         className="w-full text-lg px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-semibold transition duration-300"
                         disabled={processing}
                     >
-                        Iniciar sesión
+                        {translations.messages.auth.login}
                     </PrimaryButton>
                 </form>
 
                 {/* Registro */}
                 <p className="text-center text-sm text-gray-400 mt-6">
-                    ¿No tienes cuenta?{" "}
+                    {translations.messages.auth.no_account}{" "}
                     <Link
-                        href="/register"
+                        href={route("register")}
                         className="text-blue-500 hover:underline"
                     >
-                        Crea una aquí
+                        {translations.messages.auth.create_here}
                     </Link>
                 </p>
             </div>

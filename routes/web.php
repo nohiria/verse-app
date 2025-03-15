@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VerseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,9 +24,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/verso', function () {
-    return Inertia::render('Verso');
-})->name('verso');
+Route::get('/verso', [VerseController::class, 'index'])->name('verso');
+Route::get('/verso/refresh', [VerseController::class, 'refresh'])->name('verso.refresh');
 
 Route::get('/contacto', function () {
     return Inertia::render('Contacto');
@@ -40,5 +40,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Elimina o comenta estas rutas si no las estás usando
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/verse', [VerseController::class, 'index'])->name('verse.index');
+//     Route::get('/verse/refresh', [VerseController::class, 'refresh'])->name('verse.refresh');
+// });
+
+// Comentar o eliminar estas rutas si existen
+// Route::get('/api/verse-of-the-day', [VerseController::class, 'getVerseOfTheDay']);
+// Route::get('/verse', [VerseController::class, 'index'])->name('verse.index');
+// Route::get('/verse/refresh', [VerseController::class, 'refresh'])->name('verse.refresh');
 
 require __DIR__.'/auth.php';

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import { TbWorld } from "react-icons/tb";
 import AuthMenu from "./AuthMenu";
 
 export default function Navbar() {
+  const { translations, locale } = usePage().props;
+  console.log('Full translations object:', translations);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   // Initialize theme from localStorage or system preferences
   const [darkMode, setDarkMode] = useState(() => {
@@ -32,11 +36,66 @@ export default function Navbar() {
     setDarkMode((prev) => !prev);
   };
 
+  // Manejo seguro de traducciones
+  const getTranslation = (path) => {
+    try {
+      const keys = path.split('.');
+      let current = translations;
+      
+      for (const key of keys) {
+        if (current && typeof current === 'object') {
+          current = current[key];
+        } else {
+          console.warn(`Translation path ${path} not found`);
+          return path;
+        }
+      }
+      
+      return current || path;
+    } catch (error) {
+      console.error('Error accessing translation:', path, error);
+      return path;
+    }
+  };
+
   const links = [
-    { href: "/", label: "Principal" },
-    { href: "/verse", label: "Versículo del día" },
-    { href: "/contacto", label: "Contacto" },
+    { 
+      href: "/", 
+      label: translations?.messages?.nav?.home || 'Home'
+    },
+    { 
+      href: "/verse", 
+      label: translations?.messages?.nav?.verse || 'Verse'
+    },
+    { 
+      href: "/contacto", 
+      label: translations?.messages?.nav?.contact || 'Contact'
+    },
   ];
+
+  const languages = [
+    { code: 'es', name: 'Español' },
+    { code: 'en', name: 'English' }
+  ];
+
+  const changeLanguage = (lang) => {
+    // Usar la URL actual y mantener otros parámetros
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.location.href = url.toString();
+  };
+
+  // Cerrar el menú de idiomas cuando se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langMenuOpen && !event.target.closest('.language-selector')) {
+        setLangMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [langMenuOpen]);
 
   return (
     <nav className="fixed top-0 inset-x-0 w-full z-50 bg-white dark:bg-gray-900 shadow-sm transition-colors duration-300">
@@ -62,6 +121,42 @@ export default function Navbar() {
 
         {/* Right-side buttons */}
         <div className="flex items-center gap-4">
+          {/* Language Selector */}
+          <div className="relative language-selector">
+            <button
+              type="button"
+              onClick={() => setLangMenuOpen(!langMenuOpen)}
+              className="p-2 rounded-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white transition-colors duration-300 flex items-center gap-2"
+            >
+              <TbWorld size={18} />
+              <span className="text-sm">{locale.toUpperCase()}</span>
+            </button>
+            
+            {langMenuOpen && (
+              <div className="absolute right-0 mt-2 py-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-xl z-50">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      changeLanguage(lang.code);
+                      setLangMenuOpen(false);
+                    }}
+                    className={`block px-4 py-2 text-sm w-full text-left transition-colors duration-200 
+                      ${locale === lang.code 
+                        ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300' 
+                        : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      }`}
+                  >
+                    {lang.name}
+                    {locale === lang.code && (
+                      <span className="float-right">✓</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Dark mode toggle button */}
           <button
             type="button"
