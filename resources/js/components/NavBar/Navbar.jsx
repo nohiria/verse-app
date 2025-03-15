@@ -36,7 +36,7 @@ export default function Navbar() {
     setDarkMode((prev) => !prev);
   };
 
-  // Manejo seguro de traducciones
+  // Safe handling of translations
   const getTranslation = (path) => {
     try {
       const keys = path.split('.');
@@ -79,13 +79,13 @@ export default function Navbar() {
   ];
 
   const changeLanguage = (lang) => {
-    // Usar la URL actual y mantener otros parámetros
+    // Use the current URL and keep other parameters
     const url = new URL(window.location.href);
     url.searchParams.set('lang', lang);
     window.location.href = url.toString();
   };
 
-  // Cerrar el menú de idiomas cuando se hace clic fuera
+  // Close the language menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (langMenuOpen && !event.target.closest('.language-selector')) {
