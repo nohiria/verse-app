@@ -8,7 +8,7 @@ export default function Layout({ children }) {
       <Navbar />
 
       {/* Main content area that expands to fill available space*/}
-      <main className="flex-1 container mx-auto">
+      <main className="flex-1 container mx-auto bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
         {children}
       </main>
     </div>

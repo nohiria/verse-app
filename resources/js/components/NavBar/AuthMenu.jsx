@@ -26,17 +26,17 @@ export default function AuthMenu({ isMobile = false }) {
     return (
       <ul className="flex flex-col text-gray-800">
         <li>
-          <Link href="/login" className="block px-4 py-2 hover:bg-gray-100 rounded">
+          <Link href="/login" className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
             Sign In
           </Link>
         </li>
         <li>
-          <Link href="/register" className="block px-4 py-2 hover:bg-gray-100 rounded">
+          <Link href="/register" className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
             Create Account
           </Link>
         </li>
         <li>
-          <Link href="/contacto" className="block px-4 py-2 hover:bg-gray-100 rounded">
+          <Link href="/contacto" className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
             Contact
           </Link>
         </li>
