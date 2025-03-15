@@ -3,7 +3,7 @@ import { Head, usePage } from "@inertiajs/react";
 import Layout from "@/Layouts/Layout";
 
 export default function Home({ canLogin, canRegister }) {
-  const { locale } = usePage().props;
+  const { translations, locale } = usePage().props; 
   const [verseData, setVerseData] = useState(null);
   const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -120,7 +120,7 @@ export default function Home({ canLogin, canRegister }) {
             <div className="relative z-10">
               <div className="text-white">
                 <h2 className="text-sm font-semibold opacity-75">
-                  Versículo del Día
+                  {translations?.messages?.verse?.title || 'Verse'}
                 </h2>
                 
                 <p className="text-lg mt-1 opacity-75">

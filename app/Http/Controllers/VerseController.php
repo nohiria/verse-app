@@ -82,7 +82,7 @@ class VerseController extends Controller
                 'verse' => $verse
             ]);
         } catch (\Exception $e) {
-            \Log::error('Error in verse index:', [
+            Log::error('Error in verse index:', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
