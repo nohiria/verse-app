@@ -36,7 +36,7 @@ export default function Login({ status, canResetPassword }) {
 
                 {status && <div className="mb-4 text-sm text-green-500">{status}</div>}
 
-                {/* Formulario */}
+                {/* Form */}
                 <form onSubmit={submit} className="space-y-4">
                     {/* Email */}
                     <div>
@@ -77,7 +77,7 @@ export default function Login({ status, canResetPassword }) {
                         <InputError message={errors.password} className="mt-2" />
                     </div>
 
-                    {/* Remember Me y Forgot Password */}
+                    {/* Remember Me & Forgot Password */}
                     <div className="flex items-center justify-between">
                         <label className="flex items-center text-gray-300">
                             <Checkbox
