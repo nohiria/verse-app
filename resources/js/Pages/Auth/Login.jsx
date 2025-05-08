@@ -29,7 +29,7 @@ export default function Login({ status, canResetPassword }) {
             <Head title={translations.messages.auth.login} />
 
             <div className="max-w-md w-full p-8">
-                {/* Título */}
+                {/* Title */}
                 <h1 className="text-3xl font-bold text-white mb-6">
                     {translations.messages.auth.login}
                 </h1>
@@ -98,7 +98,7 @@ export default function Login({ status, canResetPassword }) {
                         )}
                     </div>
 
-                    {/* Botón de Login */}
+                    {/* Login Button */}
                     <PrimaryButton
                         className="w-full text-lg px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-semibold transition duration-300"
                         disabled={processing}
@@ -107,7 +107,7 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </form>
 
-                {/* Registro */}
+                {/* Registration */}
                 <p className="text-center text-sm text-gray-400 mt-6">
                     {translations.messages.auth.no_account}{" "}
                     <Link
