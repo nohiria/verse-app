@@ -33,17 +33,17 @@ export default function AuthMenu({ isMobile = false}) {
         {isLoggedIn ? (
           <>
             <li>
-              <Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+              <Link href="/dashboard" className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link href="/profile" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+              <Link href="/profile" className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
                 Profile
               </Link>
             </li>
             <li>
-              <Link method="post" href="/logout" as="button" className="block px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+              <Link method="post" href="/logout" as="button" className="block px-4 py-2 text-gray-800 dark:text-white text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
                 Logout
               </Link>
             </li>
@@ -51,19 +51,19 @@ export default function AuthMenu({ isMobile = false}) {
         ) : (
           <>
             <li>
-              <Link href="/login" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+              <Link href="/login" className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
                 Sign In
               </Link>
             </li>
             <li>
-              <Link href="/register" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+              <Link href="/register" className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
                 Create Account
               </Link>
             </li>
           </>
         )}
         <li>
-          <Link href="/contacto" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+          <Link href="/contacto" className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
             Contact
           </Link>
         </li>

@@ -40,7 +40,12 @@ class VerseController extends Controller
      * @var array
      */
     protected $books = [
-        ['name' => 'salmos', 'chapters' => 150, 'en' => 'psalm'],
+        ['name' => 'genesis', 'chapters' => 50, 'en' => 'genesis'],
+        ['name' => 'exodo', 'chapters' => 40, 'en' => 'exodus'],
+        ['name' => 'levitico', 'chapters' => 27, 'en' => 'leviticus'],
+        ['name' => 'numeros', 'chapters' => 36, 'en' => 'numbers'],
+        ['name' => 'deuteronomio', 'chapters' => 34, 'en' => 'deuteronomy'],
+        ['name' => 'josue', 'chapters' => 24, 'en' => 'joshua'],
         ['name' => 'proverbios', 'chapters' => 31, 'en' => 'proverbs'],
         ['name' => 'mateo', 'chapters' => 28, 'en' => 'matthew'],
         ['name' => 'juan', 'chapters' => 21, 'en' => 'john'],

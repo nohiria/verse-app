@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
-import { TbWorld } from "react-icons/tb";
 import AuthMenu from "./AuthMenu";
 import LanguageSelector from "../LanguageSelector";
 
@@ -67,11 +66,7 @@ export default function Navbar() {
     { 
       href: "/verse", 
       label: translations?.messages?.nav?.verse || 'Verse'
-    },
-    { 
-      href: "/contacto", 
-      label: translations?.messages?.nav?.contact || 'Contact'
-    },
+    }
   ];
 
   const languages = [
@@ -172,7 +167,7 @@ export default function Navbar() {
             ))}
           </ul>
           {/* Authentication menu for mobile */}
-          <div className="border-t border-gray-200 dark:border-gray-700 p-4">
+          <div className="border-t border-gray-200 dark:border-gray-700">
             <AuthMenu isMobile={true} />
           </div>
         </div>
